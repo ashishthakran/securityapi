@@ -1,0 +1,56 @@
+
+server:
+  port: 8080
+  contextPath: /securityapi
+logging:
+  file: logs/securityapi-logging.log
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    com.ashish.security: INFO
+    org.hibernate: INFO
+spring:
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+      accept-empty-array-as-null-object: true
+      accept-empty-string-as-null-object: true
+      fail-on-ignored-properties: true      
+  application:
+    name: securityapi
+    version: 1.0.0
+  datasource:
+    initialize: true
+    driver-class-name: com.mysql.jdbc.Driver
+    hikari:
+      jdbcUrl: jdbc:mysql://localhost:3306/security?useSSL=false
+      username: root
+      password: root
+      driverClassName: com.mysql.jdbc.Driver
+      type: com.zaxxer.hikari.HikariDataSource
+      minimum-idle: 2
+      maximum-idle: 2
+      pool-name: PrimaryPool
+      connection-timeout: 30000
+      maximum-pool-size: 2
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: MYSQL
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update      
+      naming.strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: false
+        format_sql: false
+
+password:
+  encoding:
+    multiplication: 5                
+security:
+  ignored: /**      
+  basic:
+    enabled: false
